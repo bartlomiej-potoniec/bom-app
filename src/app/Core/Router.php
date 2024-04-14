@@ -27,6 +27,7 @@ class Router
     public function __construct()
     {
         $uri = $this->getUri();
+        unset($uri[0]);
 
         if (isset($uri[1])) {
             $this->setController($uri[1]);
@@ -46,7 +47,9 @@ class Router
             unset($uri[2]);
         }
 
-        call_user_func([$controller, $this->currentMethod]);
+        $this->setParams($uri);
+
+        call_user_func_array([$controller, $this->currentMethod], $this->currentParams);
     }
 
     private function setController(string $controllerName): void
@@ -63,6 +66,11 @@ class Router
         if (method_exists($controller, $methodName)) {
             $this->currentMethod = $methodName;
         }
+    }
+
+    private function setParams(array $uri): void
+    {
+        $this->currentParams = $uri ? array_values($uri) : [];
     }
 
     /**
