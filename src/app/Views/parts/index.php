@@ -3,17 +3,19 @@
     <table>
         <thead>
             <tr>
-                <th>Numer złożenia</th>
+                <th>Numer części</th>
                 <th>Nazwa</th>
                 <th>Opis</th>
+                <th>Cena jednostkowa</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach($data['parts'] as $part): ?>
                 <tr>
-                    <td><a href="<?= URL_ROOT . '/assemblies/' . $part->getId() ?>"><?= $part->getNumber() ?></a></td>
+                    <td><a href="<?= URL_ROOT . '/parts/' . $part->getId() ?>"><?= $part->getNumber() ?></a></td>
                     <td><?= $part->getName() ?></td>
-                    <td><?= $part->getDescription() ?></td>
+                    <td><?= $part->getDescription() === null ? 'Brak opisu' : $part->getDescription() ?></td>
+                    <td><?= $part->getPrice() === null ? 'Brak ceny' : $part->getPrice() . 'zł.' ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
