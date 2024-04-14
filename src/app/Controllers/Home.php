@@ -3,22 +3,24 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Core\Database;
+use App\Services\AssemblyService;
 
 
 class Home extends Controller
 {
-    public function __construct() {}
+    private AssemblyService $service;
+
+    public function __construct()
+    {
+        $this->service = new AssemblyService;
+    }
 
     public function index(): void
     {
-        $db = new Database();
-
-        $db->query('SELECT * FROM parts');
-        $results = $db->resultSet();
+        $parts = $this->service->getAll();
 
         $data = [
-            'parts' => $results
+            'parts' => $parts
         ];
 
         $this->view('home/index', $data);

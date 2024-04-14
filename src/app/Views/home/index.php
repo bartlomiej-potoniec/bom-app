@@ -1,8 +1,19 @@
-<?php foreach($data['parts'] as $part): ?>
-    <div>
-        <p>Numer części: <?= $part->number ?>
-        <p>Nazwa: <?= $part->name ?>
-        <p>Opis: <?= $part->description ?>
-        <p>Cena jednostkowa: <?= $part->price ?>
-    </div>
-<?php endforeach; ?>
+
+<table>
+    <thead>
+        <tr>
+            <th>Numer złożenia</th>
+            <th>Nazwa</th>
+            <th>Opis</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($data['parts'] as $part): ?>
+            <tr>
+                <td><?= $part->getNumber() ?></td>
+                <td><?= $part->getName() ?></td>
+                <td><?= $part->getDescription() ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
