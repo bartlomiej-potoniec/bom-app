@@ -61,4 +61,23 @@ final class Part
     ): self {
         return new self($id, $number, $name, $description, $price);
     }
+
+    public static function createSet(array $data): array
+    {
+        $parts = [];
+
+        foreach ($data as $item) {
+            $part = self::create(
+                $item->id,
+                $item->number,
+                $item->name,
+                $item->description,
+                $item->price
+            );
+
+            array_push($parts, $part);
+        }
+
+        return $parts;
+    }
 }
