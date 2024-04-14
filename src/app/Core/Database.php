@@ -2,6 +2,9 @@
 
 namespace App\Core;
 
+use \PDO;
+use \PDOStatement;
+
 
 class Database
 {
@@ -10,8 +13,8 @@ class Database
     private string $pass = DB_PASS;
     private string $dbName = DB_NAME;
 
-    private PDO $dbh;
-    private PDOStatement $stmt;
+    private ?PDO $dbh;
+    private ?PDOStatement $stmt;
 
     public function __construct()
     {
@@ -57,5 +60,11 @@ class Database
     public function execute(): bool
     {
         return $this->stmt->execute();
+    }
+
+    public function resultSet(): array
+    {
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }
