@@ -12,7 +12,7 @@
         <tbody>
             <?php foreach($data['parts'] as $part): ?>
                 <tr>
-                    <td><a href="<?= URL_ROOT . '/parts/' . $part->getId() ?>"><?= $part->getNumber() ?></a></td>
+                    <td><a href="<?= URL_ROOT . '/parts/edit/' . $part->getId() ?>"><?= $part->getNumber() ?></a></td>
                     <td><?= $part->getName() ?></td>
                     <td><?= $part->getDescription() === null ? 'Brak opisu' : $part->getDescription() ?></td>
                     <td><?= $part->getPrice() === null ? 'Brak ceny' : $part->getPrice() . 'zł.' ?></td>

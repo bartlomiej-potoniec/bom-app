@@ -17,10 +17,10 @@ class Home extends Controller
 
     public function index(): void
     {
-        $parts = $this->service->getAll();
+        $assemblies = $this->service->getAll();
 
         $data = [
-            'parts' => $parts
+            'parts' => $assemblies
         ];
 
         $this->view('home/index', $data);
