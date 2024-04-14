@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Contracts\PartRepositoryInterface;
 
-final class PartRepository extends BaseRepository
+
+final class PartRepository extends BaseRepository implements PartRepositoryInterface
 {
     public function __construct()
     {
