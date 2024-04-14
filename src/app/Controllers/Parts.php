@@ -17,10 +17,15 @@ class Parts extends Controller
 
     public function index(): void
     {
-        $parts = $this->service->getAll();
+        $result = $this->service->getAll();
+
+        if ($result instanceof Error) {
+            $this->view('error/index', $result);
+            return;
+        }
 
         $data = [
-            'parts' => $parts
+            'parts' => $result
         ];
 
         $this->view('parts/index', $data);
@@ -48,6 +53,7 @@ class Parts extends Controller
 
         if ($result instanceof Error) {
             $this->view('error/index', $result);
+            return;
         }
 
         $this->index();

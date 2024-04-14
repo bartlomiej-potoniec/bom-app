@@ -18,7 +18,7 @@
 
         <div>
             <label for="price">Cena jednostkowa</label>
-            <input type="number" name="price" min=0 step="0.1" required>
+            <input type="number" name="price" min=0 step="0.1">
         </div>
 
         <button type="submit">Dodaj</button>

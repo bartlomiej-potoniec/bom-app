@@ -6,7 +6,6 @@ use App\Models\Part;
 use App\Repositories\PartRepository;
 use App\Services\Contracts\PartServiceInterface;
 
-
 final class PartService implements PartServiceInterface
 {
     private PartRepository $repository;
@@ -16,14 +15,19 @@ final class PartService implements PartServiceInterface
     }
 
     /**
-     * @return Part[]
+     * @return Part[]|Error
      */
-    public function getAll(): array
+    public function getAll(): array|Error
     {
-        $results = $this->repository->getAll();
-        $parts = Part::createSet($results);
+        try {
+            $results = $this->repository->getAll();
+            $parts = Part::createSet($results);
 
-        return $parts;
+            return $parts;
+        } catch (Exception $ex) {
+            return new Error($ex->getMessage());
+            die('wywaliło getAll()');
+        }
     }
 
     public function create(
