@@ -8,15 +8,15 @@ final class Part
     private int $id;
     private string $number;
     private string $name;
-    private string $description;
-    private float $price;
+    private ?string $description;
+    private ?float $price;
 
     private function __construct(
         int $id,
         string $number,
         string $name,
-        string $description,
-        float $price
+        ?string $description,
+        ?float $price
     ) {
         $this->id = $id;
         $this->number = $number;
@@ -41,12 +41,12 @@ final class Part
         return $this->name;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function getPrice(): float
+    public function getPrice(): ?float
     {
         return $this->price;
     }
@@ -56,8 +56,8 @@ final class Part
         int $id,
         string $number,
         string $name,
-        string $description,
-        float $price
+        ?string $description,
+        ?float $price
     ): self {
         return new self($id, $number, $name, $description, $price);
     }
