@@ -48,7 +48,7 @@ class Parts extends Controller
             $_POST['number'],
             $_POST['name'],
             $_POST['description'],
-            $_POST['price'],
+            floatval($_POST['price'])
         );
 
         if ($result instanceof Error) {

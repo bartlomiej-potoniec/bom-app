@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Part;
 use App\Repositories\PartRepository;
 use App\Services\Contracts\PartServiceInterface;
+use Error;
+
 
 final class PartService implements PartServiceInterface
 {
@@ -24,9 +26,8 @@ final class PartService implements PartServiceInterface
             $parts = Part::createSet($results);
 
             return $parts;
-        } catch (Exception $ex) {
-            return new Error($ex->getMessage());
-            die('wywaliło getAll()');
+        } catch (Error $error) {
+            return $error;
         }
     }
 
@@ -39,8 +40,8 @@ final class PartService implements PartServiceInterface
         try {
             $this->repository->create($number, $name, $description, $price);
             return true;
-        } catch (Exception $ex) {
-            return new Error($ex->getMessage());
+        } catch (Error $error) {
+            return $error;
         }
     }
 }
