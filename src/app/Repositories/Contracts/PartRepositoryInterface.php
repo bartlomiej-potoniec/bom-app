@@ -8,4 +8,5 @@ interface PartRepositoryInterface
     function getAll(): array;
     function getById(int $id): object;
     function create(string $number, string $name, ?string $description, ?float $price): void;
+    function edit(int $id, string $number, string $name, ?string $description, ?float $price): void;
 }

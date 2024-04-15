@@ -63,4 +63,19 @@ final class PartService implements PartServiceInterface
             return $error;
         }
     }
+
+    public function edit(
+        int $id,
+        string $number,
+        string $name,
+        ?string $description,
+        ?float $price
+    ): bool|Error {
+        try {
+            $this->repository->edit($id, $number, $name, $description, $price);
+            return true;
+        } catch (Error $error) {
+            return $error;
+        }
+    }
 }

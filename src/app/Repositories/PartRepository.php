@@ -52,4 +52,25 @@ final class PartRepository extends BaseRepository implements PartRepositoryInter
 
         $this->db->execute();
     }
+
+    public function edit(
+        int $id,
+        string $number,
+        string $name,
+        ?string $description,
+        ?float $price
+    ): void {
+        $sql = 'UPDATE parts SET number = :number, name = :name, description = :description, price = :price
+                    WHERE id = :id';
+
+        $this->db->query($sql);
+
+        $this->db->bind(':id', $id);
+        $this->db->bind(':number', $number);
+        $this->db->bind(':name', $name);
+        $this->db->bind(':description', $description);
+        $this->db->bind(':price', $price);
+
+        $this->db->execute();
+    }
 }

@@ -67,4 +67,40 @@ class Parts extends Controller
 
         $this->index();
     }
+
+    public function edit(int $id): void
+    {
+        # If GET requested return edit view with data to complete the inputs
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $result = $this->service->getById($id);
+
+            if ($result instanceof Error) {
+                $this->view('error/index', ['errors' => $result]);
+                return;
+            }
+
+            $this->view('parts/edit', ['part' => $result]);
+            return;
+        }
+
+        # If POST requested edit existing part
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        # TODO: Add validation
+
+        $result = $this->service->edit(
+            $id,
+            $_POST['number'],
+            $_POST['name'],
+            $_POST['description'],
+            floatval($_POST['price'])
+        );
+
+        if ($result instanceof Error) {
+            $this->view('error/index', $result);
+            return;
+        }
+
+        $this->index();
+    }
 }
