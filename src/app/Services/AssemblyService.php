@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Assembly;
 use App\Repositories\AssemblyRepository;
 use App\Services\Contracts\AssemblyServiceInterface;
+use Error;
 
 
 final class AssemblyService implements AssemblyServiceInterface
@@ -15,11 +16,18 @@ final class AssemblyService implements AssemblyServiceInterface
         $this->repository = new AssemblyRepository;
     }
 
-    public function getAll(): array
+    /**
+     * @return Assembly[]|Error
+     */
+    public function getAll(): array|Error
     {
-        $results = $this->repository->getAll();
-        $assemblies = Assembly::createSet($results);
+        try {
+            $results = $this->repository->getAll();
+            $assemblies = Assembly::createSet($results);
 
-        return $assemblies;
+            return $assemblies;
+        } catch (Error $error) {
+            return $error;
+        }
     }
 }

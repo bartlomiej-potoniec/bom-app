@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Services\PartService;
+use Error;
 
 
 class Parts extends Controller

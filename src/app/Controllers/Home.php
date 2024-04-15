@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Services\AssemblyService;
+use Error;
 
 
 class Home extends Controller
@@ -17,10 +18,15 @@ class Home extends Controller
 
     public function index(): void
     {
-        $assemblies = $this->service->getAll();
+        $result = $this->service->getAll();
+
+        if ($result instanceof Error) {
+            $this->view('error/index', $result);
+            return;
+        }
 
         $data = [
-            'parts' => $assemblies
+            'parts' => $result
         ];
 
         $this->view('home/index', $data);
