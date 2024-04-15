@@ -73,4 +73,14 @@ final class PartRepository extends BaseRepository implements PartRepositoryInter
 
         $this->db->execute();
     }
+
+    function delete(int $id): void
+    {
+        $sql = 'DELETE FROM parts WHERE id = :id';
+
+        $this->db->query($sql);
+        $this->db->bind(':id', $id);
+
+        $this->db->execute();
+    }
 }

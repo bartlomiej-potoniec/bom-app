@@ -20,7 +20,7 @@
                     <td>
                         <a href="<?= URL_ROOT . '/parts/details/' . $part->getId() ?>">Szczegóły</a>
                         <a href="<?= URL_ROOT . '/parts/edit/' . $part->getId() ?>">Edytuj</a>
-                        <a href="<?= URL_ROOT . '/parts/delete/' . $part->getId() ?>">Usuń</a>
+                        <a href="<?= URL_ROOT . '/parts/delete/' . $part->getId() ?>" data-id="<?= $part->getId() ?>" class="delete-link">Usuń</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

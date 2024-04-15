@@ -65,7 +65,7 @@ class Parts extends Controller
             return;
         }
 
-        $this->index();
+        header('Location: ' . URL_ROOT . '/parts');
     }
 
     public function edit(int $id): void
@@ -101,6 +101,25 @@ class Parts extends Controller
             return;
         }
 
-        $this->index();
+        header('Location: ' . URL_ROOT . '/parts');
+    }
+
+    public function delete(int $id): void
+    {
+        # If GET requested return
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return;
+        }
+
+        # TODO: Add validation
+
+        $result = $this->service->delete($id);
+
+        if ($result instanceof Error) {
+            $this->view('error/index', $result);
+            return;
+        }
+
+        header('Location: ' . URL_ROOT . '/parts');
     }
 }

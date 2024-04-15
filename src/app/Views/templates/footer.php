@@ -1,6 +1,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src=""></script>
+    <script src="<?= URL_ROOT ?>/public/js/delete.js"></script>
 </body>
 </html>

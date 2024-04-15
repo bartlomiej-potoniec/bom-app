@@ -78,4 +78,14 @@ final class PartService implements PartServiceInterface
             return $error;
         }
     }
+
+    public function delete(int $id): bool|Error
+    {
+        try {
+            $this->repository->delete($id);
+            return true;
+        } catch (Error $error) {
+            return $error;
+        }
+    }
 }
