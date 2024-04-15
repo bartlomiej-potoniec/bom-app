@@ -2,10 +2,10 @@
 
 namespace App\Services\Contracts;
 
-use Error;
 
 interface PartServiceInterface
 {
-    function getAll(): array|Error;
-    function create(string $number, string $name, ?string $description, ?float $price): bool|Error;
+    function getAll(): array|\Error;
+    function getById(int $id): \App\Models\Part|\Error;
+    function create(string $number, string $name, ?string $description, ?float $price): bool|\Error;
 }

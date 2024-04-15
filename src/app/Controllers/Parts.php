@@ -25,11 +25,19 @@ class Parts extends Controller
             return;
         }
 
-        $data = [
-            'parts' => $result
-        ];
+        $this->view('parts/index', ['parts' => $result]);
+    }
 
-        $this->view('parts/index', $data);
+    public function details(int $id): void
+    {
+        $result = $this->service->getById($id);
+
+        if ($result instanceof Error) {
+            $this->view('error/index', ['errors' => $result]);
+            return;
+        }
+
+        $this->view('parts/details', ['part' => $result]);
     }
 
     public function create(): void

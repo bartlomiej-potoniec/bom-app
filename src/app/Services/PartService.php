@@ -31,6 +31,25 @@ final class PartService implements PartServiceInterface
         }
     }
 
+    public function getById(int $id): Part|Error
+    {
+        try {
+            $result = $this->repository->getById($id);
+
+            $part = Part::create(
+                $result->id,
+                $result->number,
+                $result->name,
+                $result->description,
+                $result->price
+            );
+
+            return $part;
+        } catch (Error $error) {
+            return $error;
+        }
+    }
+
     public function create(
         string $number,
         string $name,
