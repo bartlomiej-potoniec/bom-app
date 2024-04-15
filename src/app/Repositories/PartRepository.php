@@ -12,9 +12,6 @@ final class PartRepository extends BaseRepository implements PartRepositoryInter
         parent::__construct();
     }
 
-    /**
-     * @return Part[]
-     */
     public function getAll(): array
     {
         $sql = 'SELECT id, number, name, description, price FROM parts';
@@ -23,6 +20,18 @@ final class PartRepository extends BaseRepository implements PartRepositoryInter
         $results = $this->db->resultSet();
 
         return $results;
+    }
+
+    public function getById(int $id): object
+    {
+        $sql = 'SELECT id, number, name, description, price FROM parts
+                    WHERE id = :id';
+
+        $this->db->query($sql);
+        $this->db->bind(':id', $id);
+
+        $result = $this->db->single();
+        return $result;
     }
 
     public function create(
