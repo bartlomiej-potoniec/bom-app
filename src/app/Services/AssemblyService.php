@@ -3,23 +3,18 @@
 namespace App\Services;
 
 use App\Models\Assembly;
-use App\Models\AssemblyParts;
 use App\Repositories\AssemblyRepository;
-use App\Repositories\PartRepository;
 use App\Repositories\Contracts\AssemblyRepositoryInterface;
-use App\Repositories\Contracts\PartRepositoryInterface;
 use App\Services\Contracts\AssemblyServiceInterface;
 use Error;
 
 
 final class AssemblyService implements AssemblyServiceInterface
 {
-    private AssemblyRepositoryInterface $assemblyRepository;
-    private PartRepositoryInterface $partRepository;
+    private AssemblyRepositoryInterface $repository;
 
     public function __construct() {
-        $this->assemblyRepository = new AssemblyRepository;
-        $this->partRepository = new PartRepository;
+        $this->repository = new AssemblyRepository;
     }
 
     /**
@@ -28,7 +23,7 @@ final class AssemblyService implements AssemblyServiceInterface
     public function getAll(): array|Error
     {
         try {
-            $results = $this->assemblyRepository->getAll();
+            $results = $this->repository->getAll();
             $assemblies = Assembly::createSet($results);
 
             return $assemblies;
@@ -37,15 +32,19 @@ final class AssemblyService implements AssemblyServiceInterface
         }
     }
 
-    public function getAssemblyWithParts(int $assemblyId): AssemblyParts|Error
+    public function getById(int $id): Assembly|Error
     {
         try {
-            $assemblyResult = $this->assemblyRepository->getById($assemblyId);
-            $partResults = $this->partRepository->getByAssemblyId($assemblyId);
+            $result = $this->repository->getById($id);
 
-            $assemblyParts = AssemblyParts::create($assemblyResult, $partResults);
+            $assembly = Assembly::create(
+                $result->id,
+                $result->number,
+                $result->name,
+                $result->description
+            );
 
-            return $assemblyParts;
+            return $assembly;
         } catch (Error $error) {
             return $error;
         }

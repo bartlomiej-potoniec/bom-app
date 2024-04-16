@@ -51,6 +51,22 @@ final class PartRepository extends BaseRepository implements PartRepositoryInter
         return $results;
     }
 
+    function getUnassignedToAssemblyWithId(int $assemblyId): array
+    {
+        $sql = 'SELECT p.id, p.number, p.name, p.description, p.price FROM parts AS p
+                    LEFT JOIN assembly_parts AS ap
+                        ON p.id = ap.part_id
+                        AND ap.assembly_id = :id
+                    WHERE ap.assembly_id IS NULL;';
+
+        $this->db->query($sql);
+        $this->db->bind(':id', $assemblyId);
+
+        $results = $this->db->resultSet();
+
+        return $results;
+    }
+
     public function create(
         string $number,
         string $name,
