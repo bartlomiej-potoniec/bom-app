@@ -4,13 +4,14 @@ namespace App\Services;
 
 use App\Models\Assembly;
 use App\Repositories\AssemblyRepository;
+use App\Repositories\Contracts\AssemblyRepositoryInterface;
 use App\Services\Contracts\AssemblyServiceInterface;
 use Error;
 
 
 final class AssemblyService implements AssemblyServiceInterface
 {
-    private AssemblyRepository $repository;
+    private AssemblyRepositoryInterface $repository;
 
     public function __construct() {
         $this->repository = new AssemblyRepository;

@@ -4,15 +4,17 @@ namespace App\Services;
 
 use App\Models\Part;
 use App\Repositories\PartRepository;
+use App\Repositories\Contracts\PartRepositoryInterface;
 use App\Services\Contracts\PartServiceInterface;
 use Error;
 
 
 final class PartService implements PartServiceInterface
 {
-    private PartRepository $repository;
+    private PartRepositoryInterface $repository;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->repository = new PartRepository;
     }
 

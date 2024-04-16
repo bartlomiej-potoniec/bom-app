@@ -4,12 +4,13 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Services\AssemblyService;
+use App\Services\Contracts\AssemblyServiceInterface;
 use Error;
 
 
-class Home extends Controller
+class Assemblies extends Controller
 {
-    private AssemblyService $service;
+    private AssemblyServiceInterface $service;
 
     public function __construct()
     {
@@ -26,5 +27,17 @@ class Home extends Controller
         }
 
         $this->view('home/index', ['assemblies' => $result]);
+    }
+
+    public function details(int $id): void
+    {
+        $result = $this->service->getById($id);
+
+        if ($result instanceof Error) {
+            $this->view('error/index', ['errors' => $result]);
+            return;
+        }
+
+        $this->view('parts/details', ['part' => $result]);
     }
 }
