@@ -29,15 +29,15 @@ class Assemblies extends Controller
         $this->view('home/index', ['assemblies' => $result]);
     }
 
-    public function details(int $id): void
+    public function details(int $assemblyId): void
     {
-        $result = $this->service->getById($id);
+        $result = $this->service->getAssemblyWithParts($assemblyId);
 
         if ($result instanceof Error) {
             $this->view('error/index', ['errors' => $result]);
             return;
         }
 
-        $this->view('parts/details', ['part' => $result]);
+        $this->view('assemblies/details', ['assemblyParts' => $result]);
     }
 }

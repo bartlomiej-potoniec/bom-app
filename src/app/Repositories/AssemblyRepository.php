@@ -21,4 +21,16 @@ final class AssemblyRepository extends BaseRepository implements AssemblyReposit
 
         return $results;
     }
+
+    public function getById(int $id): object
+    {
+        $sql = 'SELECT id, number, name, description FROM assemblies
+                    WHERE id = :id';
+
+        $this->db->query($sql);
+        $this->db->bind(':id', $id);
+
+        $result = $this->db->single();
+        return $result;
+    }
 }

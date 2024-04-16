@@ -44,7 +44,13 @@ final class AssemblyParts
         object $assembly,
         array $parts,
     ): self {
-        $assemblyResult = Assembly::create($assembly);
+        $assemblyResult = Assembly::create(
+            $assembly->id,
+            $assembly->number,
+            $assembly->name,
+            $assembly->description
+        );
+
         $partsResult = Part::createSet($parts);
 
         return new self($assemblyResult, $partsResult);

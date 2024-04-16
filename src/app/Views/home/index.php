@@ -9,11 +9,16 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach($data['parts'] as $part): ?>
+            <?php foreach($data['assemblies'] as $assembly): ?>
                 <tr>
-                    <td><a href="<?= URL_ROOT . '/assemblies/' . $part->getId() ?>"><?= $part->getNumber() ?></a></td>
-                    <td><?= $part->getName() ?></td>
-                    <td><?= $part->getDescription() ?></td>
+                    <td><a href="<?= URL_ROOT . '/assemblies/details/' . $assembly->getId() ?>"><?= $assembly->getNumber() ?></a></td>
+                    <td><?= $assembly->getName() ?></td>
+                    <td><?= $assembly->getDescription() ?></td>
+                    <td>
+                        <a href="<?= URL_ROOT . '/assemblies/details/' . $assembly->getId() ?>">Szczegóły</a>
+                        <a href="<?= URL_ROOT . '/assemblies/edit/' . $assembly->getId() ?>">Edytuj</a>
+                        <a href="<?= URL_ROOT . '/assemblies/delete/' . $assembly->getId() ?>" data-id="<?= $assembly->getId() ?>" class="delete-link">Usuń</a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
