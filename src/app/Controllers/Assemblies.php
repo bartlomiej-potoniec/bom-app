@@ -23,7 +23,7 @@ class Assemblies extends Controller
 
     public function index(): void
     {
-        $result = $this->service->getAll();
+        $result = $this->assemblyService->getAll();
 
         if ($result instanceof Error) {
             $this->view('error/index', $result);
