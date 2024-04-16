@@ -4,12 +4,13 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Services\AssemblyService;
+use App\Services\Contracts\AssemblyServiceInterface;
 use Error;
 
 
 class Home extends Controller
 {
-    private AssemblyService $service;
+    private AssemblyServiceInterface $service;
 
     public function __construct()
     {
