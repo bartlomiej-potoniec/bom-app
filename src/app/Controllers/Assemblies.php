@@ -4,21 +4,21 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Services\AssemblyService;
-use App\Services\PartService;
+use App\Services\AssemblyPartService;
 use App\Services\Contracts\AssemblyServiceInterface;
-use App\Services\Contracts\PartServiceInterface;
+use App\Services\Contracts\AssemblyPartServiceInterface;
 use Error;
 
 
 class Assemblies extends Controller
 {
     private AssemblyServiceInterface $assemblyService;
-    private PartServiceInterface $partService;
+    private AssemblyPartServiceInterface $partService;
 
     public function __construct()
     {
         $this->assemblyService = new AssemblyService;
-        $this->partService = new PartService;
+        $this->assemblyPartService = new AssemblyPartService;
     }
 
     public function index(): void
@@ -36,13 +36,15 @@ class Assemblies extends Controller
     public function details(int $assemblyId): void
     {
         $assemblyResult = $this->assemblyService->getById($assemblyId);
-        $assemblyPartsResult = $this->partService->getByAssemblyId($assemblyId);
-        $unasignedPartsResult = $this->partService->getUnassignedToAssemblyWithId($assemblyId);
+        $assemblyPartsResult = $this->assemblyPartService->getByAssemblyId($assemblyId);
+        $unasignedPartsResult = $this->assemblyPartService->getUnassignedToAssemblyWithId($assemblyId);
 
-        if ($assemblyResult instanceof Error
-            || $assemblyPartsResult instanceof Error
-            || $unasignedPartsResult instanceof Error) {
-            $this->view('error/index', ['errors' => $result]);
+        if (
+            $assemblyResult instanceof Error ||
+            $assemblyPartsResult instanceof Error ||
+            $unasignedPartsResult instanceof Error
+        ) {
+            $this->view('error/index', ['errors' => $assemblyResult]);
             return;
         }
 

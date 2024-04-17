@@ -52,36 +52,6 @@ final class PartService implements PartServiceInterface
         }
     }
 
-    /**
-     * @return Part[]|Error
-     */
-    public function getByAssemblyId(int $assemblyId): array|Error
-    {
-        try {
-            $results = $this->repository->getByAssemblyId($assemblyId);
-            $parts = Part::createSet($results);
-
-            return $parts;
-        } catch (Error $error) {
-            return $error;
-        }
-    }
-
-    /**
-     * @return Part[]|Error
-     */
-    public function getUnassignedToAssemblyWithId(int $assemblyId): array|Error
-    {
-        try {
-            $results = $this->repository->getUnassignedToAssemblyWithId($assemblyId);
-            $parts = Part::createSet($results);
-
-            return $parts;
-        } catch (Error $error) {
-            return $error;
-        }
-    }
-
     public function create(
         string $number,
         string $name,
