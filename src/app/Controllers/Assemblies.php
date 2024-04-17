@@ -54,4 +54,16 @@ class Assemblies extends Controller
             'unasignedParts' => $unasignedPartsResult
         ]);
     }
+
+    public function unassign(int $assemblyId, int $partId): void
+    {
+        $result = $this->assemblyPartService->unassignPart($assemblyId, $partId);
+
+        if ($result instanceof Error) {
+            $this->view('error/index', $result);
+            return;
+        }
+
+        header('Location: ' . URL_ROOT . '/assemblies/details/' . $assemblyId);
+    }
 }

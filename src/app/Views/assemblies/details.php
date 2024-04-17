@@ -24,13 +24,17 @@
             <tbody>
                 <?php foreach($data['assemblyParts'] as $part): ?>
                     <tr>
-                        <td><a href="#"><?= $part->getNumber() ?></a></td>
+                        <td><a href="<?= URL_ROOT . '/parts/details/' . $part->getId() ?>"><?= $part->getNumber() ?></a></td>
                         <td><?= $part->getName() ?></td>
                         <td><?= $part->getDescription() === null ? 'Brak opisu' : substr($part->getDescription(), 0, 40) . '...' ?></td>
                         <td><?= $part->getPrice() === null ? 'Brak ceny' : $part->getPrice() . 'zł.' ?></td>
                         <td><?= $part->getQuantity() ?></td>
                         <td><?= $part->getTotalCost() === null ? 'Brak ceny' : $part->getTotalCost() . 'zł.' ?></td>
-                        <td><a href="#">Usuń ze złożenia</a></td>
+                        <td>
+                            <a href="<?= URL_ROOT . '/assemblies/increment/' . $data['assembly']->getId() . '/' . $part->getId() ?>">Zwiększ</a>
+                            <a href="<?= URL_ROOT . '/assemblies/decrement/' . $data['assembly']->getId() . '/' . $part->getId() ?>">Zmniejsz</a>
+                            <a href="<?= URL_ROOT . '/assemblies/unassign/' . $data['assembly']->getId() . '/' . $part->getId() ?>">Usuń</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -62,7 +66,7 @@
                         <td><?= $part->getDescription() === null ? 'Brak opisu' : substr($part->getDescription(), 0, 40) ?></td>
                         <td><?= $part->getPrice() === null ? 'Brak ceny' : $part->getPrice() . 'zł.' ?></td>
                         <td>
-                            <a href="#" class="delete-link">Dodaj do złożenia</a>
+                            <a href="#">Dodaj do złożenia</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

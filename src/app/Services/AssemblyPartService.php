@@ -48,4 +48,20 @@ final class AssemblyPartService implements AssemblyPartServiceInterface
             return $error;
         }
     }
+
+    function unassignPart(int $assemblyId, int $partId): bool|\Error
+    {
+        try {
+            $result = $this->repository->getByAssemblyAndPartId($assemblyId, $partId);
+
+            if ($result === null) {
+                return false;
+            }
+
+            $this->repository->unassignPart($assemblyId, $partId);
+            return true;
+        } catch (Error $error) {
+            return $error;
+        }
+    }
 }

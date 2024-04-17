@@ -46,4 +46,41 @@ final class AssemblyPartRepository
 
         return $results;
     }
+
+    function getByAssemblyAndPartId(int $assemblyId, int $partId): ?object
+    {
+        $sql = 'SELECT p.id, p.number, p.name, p.description, p.price, ap.quantity, ap.total_cost
+                    FROM parts as p
+                    JOIN assembly_parts as ap
+                        ON p.id = ap.part_id
+                    JOIN assemblies as a
+                        ON a.id = ap.assembly_id
+                    WHERE ap.assembly_id = :assemblyId AND ap.part_id = :partId';
+
+        $this->db->query($sql);
+
+        $this->db->bind(':assemblyId', $assemblyId);
+        $this->db->bind(':partId', $partId);
+
+        $result = $this->db->single();
+
+        if ($this->db->rowCount() === 0) {
+            return null;
+        }
+
+        return $result;
+    }
+
+    function unassignPart(int $assemblyId, int $partId): void
+    {
+        $sql = 'DELETE FROM assembly_parts
+                    WHERE assembly_id = :assemblyId AND part_id = :partId';
+
+        $this->db->query($sql);
+
+        $this->db->bind(':assemblyId', $assemblyId);
+        $this->db->bind(':partId', $partId);
+
+        $this->db->execute();
+    }
 }
