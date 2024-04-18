@@ -8,13 +8,13 @@ class Controller
     private const MODELS_PATH = '../src/app/Models';
     private const VIEWS_PATH = '../src/app/Views/';
 
-    public function model(string $model = ''): object
+    protected function model(string $model = ''): object
     {
         require_once self::MODELS_PATH . $model . '.php';
         return new $model();
     }
 
-    public function view(string $view = '', array $data = []): void
+    protected function view(string $view = '', array $data = []): void
     {
         $view = self::VIEWS_PATH . $view . '.php';
 
@@ -23,5 +23,11 @@ class Controller
         }
 
         require_once $view;
+    }
+
+    protected function redirect(string $path): void
+    {
+        header('Location: ' . URL_ROOT . $path);
+        return;
     }
 }

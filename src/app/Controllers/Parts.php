@@ -65,7 +65,7 @@ class Parts extends Controller
             return;
         }
 
-        header('Location: ' . URL_ROOT . '/parts');
+        $this->redirect('/parts');
     }
 
     public function edit(int $id): void
@@ -101,7 +101,7 @@ class Parts extends Controller
             return;
         }
 
-        header('Location: ' . URL_ROOT . '/parts');
+        $this->redirect('/parts');
     }
 
     public function delete(int $id): void
@@ -120,6 +120,6 @@ class Parts extends Controller
             return;
         }
 
-        header('Location: ' . URL_ROOT . '/parts');
+        $this->redirect('/parts');
     }
 }

@@ -39,12 +39,18 @@ class Assemblies extends Controller
         $assemblyPartsResult = $this->assemblyPartService->getByAssemblyId($assemblyId);
         $unasignedPartsResult = $this->assemblyPartService->getUnassignedToAssemblyWithId($assemblyId);
 
-        if (
-            $assemblyResult instanceof Error ||
-            $assemblyPartsResult instanceof Error ||
-            $unasignedPartsResult instanceof Error
-        ) {
+        if ($assemblyResult instanceof Error) {
             $this->view('error/index', ['errors' => $assemblyResult]);
+            return;
+        }
+
+        if ($assemblyPartsResult instanceof Error) {
+            $this->view('error/index', ['errors' => $assemblyPartsResult]);
+            return;
+        }
+
+        if ($unasignedPartsResult instanceof Error) {
+            $this->view('error/index', ['errors' => $unasignedPartsResult]);
             return;
         }
 
@@ -60,10 +66,10 @@ class Assemblies extends Controller
         $result = $this->assemblyPartService->unassignPart($assemblyId, $partId);
 
         if ($result instanceof Error) {
-            $this->view('error/index', $result);
+            $this->view('error/index', ['errors' => $result]);
             return;
         }
 
-        header('Location: ' . URL_ROOT . '/assemblies/details/' . $assemblyId);
+        $this->redirect('/assemblies/details/' . $assemblyId);
     }
 }
